@@ -17,4 +17,9 @@ public class TestController {
     public List<TestModel> test() {
         return testService.test();
     }
+
+    @GetMapping("/exist")
+    public boolean test2() {
+        return testService.isExist();
+    }
 }

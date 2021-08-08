@@ -27,7 +27,8 @@ public class MybatisConfig {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResource("classpath:/mapper/TestMapper.xml"));
+        sessionFactory.setMapperLocations(resolver.getResource("classpath:/mapper/TestMapper.xml"),
+                resolver.getResource("classpath:/mapper/TestTwoMapper.xml"));
 
         org.apache.ibatis.session.Configuration config = new org.apache.ibatis.session.Configuration();
         config.setMapUnderscoreToCamelCase(true);

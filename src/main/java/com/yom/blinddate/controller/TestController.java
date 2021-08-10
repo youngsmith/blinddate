@@ -22,4 +22,11 @@ public class TestController {
     public boolean test2() {
         return testService.isExist();
     }
+
+    @GetMapping("/exception")
+    public boolean test3() {
+        int a = 0;
+        int c = 10/a;
+        return true;
+    }
 }

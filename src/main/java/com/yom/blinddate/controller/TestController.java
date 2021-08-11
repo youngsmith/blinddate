@@ -29,4 +29,10 @@ public class TestController {
         int c = 10/a;
         return true;
     }
+
+    @GetMapping("/farm")
+    public String test4() {
+        testService.createFarm();
+        return "created farm";
+    }
 }

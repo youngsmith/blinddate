@@ -1,12 +1,10 @@
 package com.yom.blinddate.configuration;
 
-import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.AutoMappingBehavior;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -16,12 +14,6 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "com.yom.blinddate.repository")
 public class MybatisConfig {
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.hikari")
-    public DataSource dataSource() {
-        return new HikariDataSource();
-    }
-
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();

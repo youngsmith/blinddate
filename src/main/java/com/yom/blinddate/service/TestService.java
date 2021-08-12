@@ -24,7 +24,6 @@ public class TestService {
         return testTwoRepository.isExist();
     }
     public void createFarm() {
-        Farm farm = new Farm().setName("abc").setOwner("def");
-        farmRepository.save(farm);
+
     }
 }

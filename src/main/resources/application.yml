@@ -4,15 +4,4 @@ server:
 spring:
   profiles:
     active: local # 기본 환경 선택
----
-spring:
-  config:
-    activate:
-      on-profile: local
 
-  datasource:
-    hikari:
-      jdbc-url: jdbc:postgresql://localhost:5432/test
-      username: manager
-      password: duddus186213!
-      driver-class-name: org.postgresql.Driver

@@ -1,5 +1,6 @@
 package com.yom.blinddate.configuration;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -10,15 +11,19 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.yom.blinddate.repository"})   // for repository scan
+@EnableJpaRepositories(basePackages = {"com.yom.blinddate"})   // for repository scan
 @EnableTransactionManagement
 @EnableJpaAuditing  // audit 기능을 enable 이 필요
+// @EntityScan
 public class JpaConfig {
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -26,7 +31,7 @@ public class JpaConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.yom.blinddate.model.entity");   // for entity package scan
+        factory.setPackagesToScan("com.yom.blinddate");   // for entity package scan
         factory.setDataSource(dataSource);
         factory.setJpaProperties(additionalProperties());
         return factory;
@@ -53,4 +58,6 @@ public class JpaConfig {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return properties;
     }
+
+
 }

@@ -1,7 +1,8 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   profiles:
     active: local # 기본 환경 선택
+
 

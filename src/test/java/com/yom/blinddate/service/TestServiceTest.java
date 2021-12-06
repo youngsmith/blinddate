@@ -8,8 +8,10 @@ import static org.junit.jupiter.api.condition.OS.MAC;
 
 import com.yom.blinddate.model.TestModel;
 import com.yom.blinddate.model.entity.Animal;
+import com.yom.blinddate.model.entity.Cctv;
 import com.yom.blinddate.model.entity.Farm;
 import com.yom.blinddate.repository.AnimalRepository;
+import com.yom.blinddate.repository.CctvRepository;
 import com.yom.blinddate.repository.FarmRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -35,6 +37,9 @@ class TestServiceTest {
 
   @Autowired
   private AnimalRepository animalRepository;
+
+  @Autowired
+  private CctvRepository cctvRepository;
 
   @PersistenceContext
   private EntityManager entityManager;
@@ -96,6 +101,67 @@ class TestServiceTest {
     List<Animal> animals = farm1.getAnimals();
 
     System.out.println("");
+  }
+
+
+  public static class Abc {
+    String a;
+
+    @Override
+    public String toString() {
+      return a;
+    }
+    public void setA(String a) {
+      this.a = a;
+    }
+
+    public String getA() {
+      return a;
+    }
+  }
+
+  public static class Abcd extends Abc {
+    String a;
+
+    @Override
+    public String toString() {
+      System.out.println(super.getA());
+      return a;
+    }
+
+    public void setA(String a) {
+      this.a = a;
+    }
+
+    public String getA() {
+      return a;
+    }
+  }
+
+  @Transactional
+  @Test
+  void test5() {
+    Abcd abcd = new Abcd();
+    abcd.setA("zzzzz");
+    System.out.println(abcd);
+
+    Cctv cctv = new Cctv();
+    cctv.setOffer("tmap");
+    cctv.setMeshId(191919L);
+    cctv.setRoadCate("complex");
+    cctv.setSnapshotId(1010L);
+
+    cctvRepository.save(cctv);
+  }
+
+  @Test
+  void test6() {
+    Abcd abcd = new Abcd();
+    abcd.setA("a");
+    Abcd abcd2 = new Abcd();
+    abcd2.setA("a");
+
+    System.out.println(abcd.equals(abcd2));
   }
 
 }

@@ -4,6 +4,12 @@ plugins {
     id 'java'
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 group = 'com.yom'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -35,6 +41,29 @@ dependencies {
     //testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
+    // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.5.6.RELEASE'
+    implementation group: 'com.querydsl', name: 'querydsl-jpa'
+    implementation group: 'com.querydsl', name: 'querydsl-apt'
+}
+
+configure("querydsl-sample") {
+    apply plugin: "io.spring.dependency-management"
+
+    dependencies {
+        implementation("com.querydsl:querydsl-core")
+        implementation("com.querydsl:querydsl-jpa")
+
+        annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa") // querydsl JPAAnnotationProcessor 사용 지정
+        annotationProcessor("jakarta.persistence:jakarta.persistence-api") // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
+        annotationProcessor("jakarta.annotation:jakarta.annotation-api") // java.lang.NoClassDefFoundError (javax.annotation.Generated) 발생 대응
+    }
+
+
+    // Gradle clean을 하게되면 생성된 generated 아래 Q클래스 파일이 삭제된다
+    clean {
+        delete file('src/main/generated') // 인텔리제이 큐 클래스 경로
+    }
 }
 
 test {

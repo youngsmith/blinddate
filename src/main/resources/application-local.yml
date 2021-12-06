@@ -5,3 +5,9 @@ spring:
       username: manager
       password: duddus186213!
       driver-class-name: org.postgresql.Driver
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+    producer:
+      bootstrap-servers: localhost:9092
